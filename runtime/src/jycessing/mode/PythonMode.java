@@ -76,7 +76,7 @@ public class PythonMode extends Mode {
 
   @Override
   public String getTitle() {
-    return "Python";
+    return "TGDPython";
   }
 
   @Override

@@ -197,6 +197,9 @@ public class PAppletJythonDriver extends PApplet {
   // Implement the Serial library's callback.
   private PyObject serialEventMeth;
 
+  // Implement the Game Controller library's callback.
+  private PyObject gcEventMeth;
+
   // Implement the net library's callbacks.
   private PyObject clientEventMeth, disconnectEventMeth, serverEventMeth;
 
@@ -694,6 +697,9 @@ public class PAppletJythonDriver extends PApplet {
 
     // Serial library callback.
     serialEventMeth = interp.get("serialEvent");
+
+    // Game Controller library callback.
+    gcEventMeth = interp.get("gcEvent");
 
     // Net library callbacks.
     clientEventMeth = interp.get("clientEvent");
@@ -1585,6 +1591,13 @@ public class PAppletJythonDriver extends PApplet {
   public void serialEvent(final Object whichPort) {
     if (serialEventMeth != null) {
       serialEventMeth.__call__(Py.java2py(whichPort));
+    }
+  }
+
+  // Game Controller library callback.
+  public void gcEvent(final Object event) {
+    if (gcEventMeth != null) {
+      gcEventMeth.__call__(Py.java2py(event));
     }
   }
 
