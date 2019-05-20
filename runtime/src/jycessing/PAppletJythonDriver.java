@@ -197,8 +197,8 @@ public class PAppletJythonDriver extends PApplet {
   // Implement the Serial library's callback.
   private PyObject serialEventMeth;
 
-  // Implement the Game Controller library's callback.
-  private PyObject gcEventMeth;
+  // Implement the TGD library's callbacks.
+  private PyObject tgdButtonPressedMeth, tgdButtonReleasedMeth;
 
   // Implement the net library's callbacks.
   private PyObject clientEventMeth, disconnectEventMeth, serverEventMeth;
@@ -698,8 +698,9 @@ public class PAppletJythonDriver extends PApplet {
     // Serial library callback.
     serialEventMeth = interp.get("serialEvent");
 
-    // Game Controller library callback.
-    gcEventMeth = interp.get("gcEvent");
+    // TGD library callbacks.
+    tgdButtonPressedMeth = interp.get("tgdButtonPressed");
+    tgdButtonReleasedMeth = interp.get("tgdButtonReleasedMeth");
 
     // Net library callbacks.
     clientEventMeth = interp.get("clientEvent");
@@ -1594,10 +1595,16 @@ public class PAppletJythonDriver extends PApplet {
     }
   }
 
-  // Game Controller library callback.
-  public void gcEvent(final Object event) {
-    if (gcEventMeth != null) {
-      gcEventMeth.__call__(Py.java2py(event));
+  // TGD library callbacks.
+  public void tgdButtonReleased(final Object event) {
+    if (tgdButtonReleasedMeth != null) {
+      tgdButtonReleasedMeth.__call__(Py.java2py(event));
+    }
+  }
+
+  public void tgdButtonPressed(final Object event) {
+    if (tgdButtonPressedMeth != null) {
+      tgdButtonPressedMeth.__call__(Py.java2py(event));
     }
   }
 
